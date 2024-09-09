@@ -1,6 +1,3 @@
-
-
-
 const { Client, GatewayIntentBits, ActivityType, TextChannel } = require('discord.js');
 require('dotenv').config();
 const express = require('express');
@@ -21,12 +18,16 @@ app.listen(port, () => {
   console.log(`🔗 Powered By RTX`);
 });
 
-
-const statusMessages = ["Team KeyGen"];
-
+// Array with different activities
+const statusMessages = [
+  { name: "AthlixGG", type: ActivityType.Watching },
+  { name: "Fortnite", type: ActivityType.Playing },
+  { name: "We are Athlix", type: ActivityType.Listening },
+  { name: "Twitch AthlixGG", type: ActivityType.Streaming, url: 'https://www.twitch.tv/athlixgg' }
+];
 
 let currentIndex = 0;
-const channelId = '';
+const channelId = ''; // Set your channel ID here
 
 async function login() {
   try {
@@ -38,27 +39,22 @@ async function login() {
   }
 }
 
-
-
 function updateStatusAndSendMessages() {
   const currentStatus = statusMessages[currentIndex];
-  const nextStatus = statusMessages[(currentIndex + 1) % statusMessages.length];
 
+  // Update presence with the current status
   client.user.setPresence({
-    activities: [{ name: currentStatus, type: ActivityType.Custom}],
+    activities: [{ name: currentStatus.name, type: currentStatus.type, url: currentStatus.url || null }],
     status: 'dnd',
   });
 
-  
+  // Send message to the specified channel (if channelId is valid)
   const textChannel = client.channels.cache.get(channelId);
-
   if (textChannel instanceof TextChannel) {
-   
-    textChannel.send(`Bot status is: ${currentStatus}`);
-  } else {
-
+    textChannel.send(`Bot status is now: ${currentStatus.name}`);
   }
 
+  // Update the index for the next cycle
   currentIndex = (currentIndex + 1) % statusMessages.length;
 }
 
@@ -66,10 +62,12 @@ client.once('ready', () => {
   console.log(`\x1b[36m%s\x1b[0m`, `|    Bot is ready as ${client.user.tag}`);
   updateStatusAndSendMessages();
 
+  // Set interval to update status every 10 seconds
   setInterval(() => {
     updateStatusAndSendMessages();
   }, 10000);
 });
 
 login();
+
 

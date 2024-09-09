@@ -65,7 +65,7 @@ client.once('ready', () => {
   // Set interval to update status every 10 seconds
   setInterval(() => {
     updateStatusAndSendMessages();
-  }, 10000);
+  }, 600000);
 });
 
 login();

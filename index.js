@@ -20,10 +20,7 @@ app.listen(port, () => {
 
 // Array with different activities
 const statusMessages = [
-  { name: "AthlixGG", type: ActivityType.Watching },
-  { name: "Fortnite", type: ActivityType.Playing },
-  { name: "We are Athlix", type: ActivityType.Listening },
-  { name: "Twitch AthlixGG", type: ActivityType.Streaming, url: 'https://www.twitch.tv/athlixgg' }
+  { name: "AthlixGG", type: ActivityType.Watching }
 ];
 
 let currentIndex = 0;

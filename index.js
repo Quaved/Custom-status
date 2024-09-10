@@ -20,7 +20,7 @@ app.listen(port, () => {
 
 // Array with different activities
 const statusMessages = [
-  { name: "AthlixGG", type: ActivityType.Watching }
+  { name: "AthlixGG", type: ActivityType.Playing }
 ];
 
 let currentIndex = 0;
